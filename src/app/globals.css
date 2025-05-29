@@ -1,26 +1,126 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    --foreground: #ffffff;
+    --background: #000000;
+    --primary: #2563EB;
+    --primary-dark: #1d4ed8;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: 'Source Code Pro', monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+    background: var(--primary);
+    color: white;
+}
+
+/* Glassmorphism Components */
+@layer components {
+    .glass-card {
+        @apply bg-glass-light backdrop-blur-md border border-white/10 rounded-lg shadow-glass;
+    }
+
+    .glass-button {
+        @apply bg-glass-light hover:bg-glass-medium backdrop-blur-md border border-white/10 rounded-lg px-4 py-2 text-white hover:text-white/90 transition-all duration-300 hover:scale-105 hover:shadow-glass;
+    }
+
+    .glass-input {
+        @apply bg-glass-light backdrop-blur-md border border-white/10 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+/* Smooth transitions */
+* {
+    @apply transition-all duration-300 ease-in-out;
+}
+
+/* Hover effects */
+.hover-lift {
+    @apply transition-transform duration-300 ease-in-out;
+}
+
+.hover-lift:hover {
+    @apply -translate-y-1;
+}
+
+/* Glass effect */
+.glass {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 255, 0.1);
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
 }
