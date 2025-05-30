@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
 import PageTransition from '@/components/PageTransition';
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS
+emailjs.init('BtyJ_akl0-Ay_IYeQ');
 
 export default function Contact() {
     const searchParams = useSearchParams();
@@ -11,6 +15,12 @@ export default function Contact() {
         name: '',
         email: '',
         service: '',
+        message: '',
+    });
+    const [status, setStatus] = useState({
+        loading: false,
+        success: false,
+        error: false,
         message: '',
     });
 
@@ -23,8 +33,68 @@ export default function Contact() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: Implement form submission
-        console.log('Form submitted:', formData);
+        setStatus({ loading: true, success: false, error: false, message: '' });
+
+        try {
+            // Send notification to you
+            const templateParams = {
+                name: formData.name,
+                email: formData.email,
+                title: formData.service,
+                message: formData.message,
+                reply_to: formData.email
+            };
+
+            await emailjs.send(
+                'akananurux_noreply',
+                'template_jha2ntw',
+                templateParams
+            );
+
+            // Send data to Google Spreadsheet
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbzwptC1t3EPhhI-W02rny89zDRbHMrIaAYuEmV3A-KrNS12gGTr7lCbhM5BqUJhp0uDeA/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: formData.name,
+                        email: formData.email,
+                        service: formData.service,
+                        message: formData.message,
+                    }),
+                });
+
+                console.log('Data saved to spreadsheet');
+
+                setStatus({
+                    loading: false,
+                    success: true,
+                    error: false,
+                    message: 'Thank you for your message! We will get back to you within 3 business days.',
+                });
+                setFormData({ name: '', email: '', service: '', message: '' });
+            } catch (error) {
+                console.error('Error saving to spreadsheet:', error);
+                setStatus({
+                    loading: false,
+                    success: true,
+                    error: false,
+                    message: 'Thank you for your message! We will get back to you within 3 business days.',
+                });
+                setFormData({ name: '', email: '', service: '', message: '' });
+            }
+        } catch (error) {
+            console.error('Error sending email:', error);
+            setStatus({
+                loading: false,
+                success: false,
+                error: true,
+                message: 'Sorry, there was an error sending your message. Please try again.',
+            });
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -49,8 +119,8 @@ export default function Contact() {
                                         <EnvelopeIcon className="h-7 w-6 text-primary" aria-hidden="true" />
                                     </dt>
                                     <dd>
-                                        <a className="hover:text-white transition-all duration-300" href="mailto:contact@akananurux.com">
-                                            contact@akananurux.com
+                                        <a className="hover:text-white transition-all duration-300" href="mailto:akananurux@gmail.com">
+                                            akananurux@gmail.com
                                         </a>
                                     </dd>
                                 </div>
@@ -60,8 +130,30 @@ export default function Contact() {
                                         <PhoneIcon className="h-7 w-6 text-primary" aria-hidden="true" />
                                     </dt>
                                     <dd>
-                                        <a className="hover:text-white transition-all duration-300" href="https://linkedin.com/in/akananurux" target="_blank" rel="noopener noreferrer">
+                                        <a className="hover:text-white transition-all duration-300" href="https://www.linkedin.com/in/akananurux" target="_blank" rel="noopener noreferrer">
                                             LinkedIn Profile
+                                        </a>
+                                    </dd>
+                                </div>
+                                <div className="flex gap-x-4">
+                                    <dt className="flex-none">
+                                        <span className="sr-only">Instagram</span>
+                                        <PhoneIcon className="h-7 w-6 text-primary" aria-hidden="true" />
+                                    </dt>
+                                    <dd>
+                                        <a className="hover:text-white transition-all duration-300" href="https://www.instagram.com/akananurux/" target="_blank" rel="noopener noreferrer">
+                                            Instagram Profile
+                                        </a>
+                                    </dd>
+                                </div>
+                                <div className="flex gap-x-4">
+                                    <dt className="flex-none">
+                                        <span className="sr-only">X</span>
+                                        <PhoneIcon className="h-7 w-6 text-primary" aria-hidden="true" />
+                                    </dt>
+                                    <dd>
+                                        <a className="hover:text-white transition-all duration-300" href="https://x.com/akananurux" target="_blank" rel="noopener noreferrer">
+                                            X Profile
                                         </a>
                                     </dd>
                                 </div>
@@ -70,6 +162,11 @@ export default function Contact() {
                     </div>
                     <form onSubmit={handleSubmit} className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48">
                         <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
+                            {status.message && (
+                                <div className={`mb-4 p-4 rounded-md ${status.success ? 'bg-green-500/20 text-green-300' : status.error ? 'bg-red-500/20 text-red-300' : ''}`}>
+                                    {status.message}
+                                </div>
+                            )}
                             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-semibold leading-6 text-white">
@@ -82,6 +179,7 @@ export default function Contact() {
                                             id="name"
                                             value={formData.name}
                                             onChange={handleChange}
+                                            required
                                             className="glass-input w-full"
                                         />
                                     </div>
@@ -97,6 +195,7 @@ export default function Contact() {
                                             id="email"
                                             value={formData.email}
                                             onChange={handleChange}
+                                            required
                                             className="glass-input w-full"
                                         />
                                     </div>
@@ -111,6 +210,7 @@ export default function Contact() {
                                             id="service"
                                             value={formData.service}
                                             onChange={handleChange}
+                                            required
                                             className="glass-input w-full"
                                         >
                                             <option value="">Select a service</option>
@@ -133,6 +233,7 @@ export default function Contact() {
                                             rows={4}
                                             value={formData.message}
                                             onChange={handleChange}
+                                            required
                                             className="glass-input w-full"
                                         />
                                     </div>
@@ -141,9 +242,10 @@ export default function Contact() {
                             <div className="mt-8 flex justify-end">
                                 <button
                                     type="submit"
-                                    className="glass-button"
+                                    disabled={status.loading}
+                                    className={`glass-button ${status.loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 >
-                                    Send Message
+                                    {status.loading ? 'Sending...' : 'Send Message'}
                                 </button>
                             </div>
                         </div>

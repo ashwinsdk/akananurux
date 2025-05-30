@@ -26,11 +26,6 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/portfolio" className="text-gray-400 hover:text-blue-300 transition-colors">
-                                    Portfolio
-                                </Link>
-                            </li>
-                            <li>
                                 <Link href="/contact" className="text-gray-400 hover:text-blue-300 transition-colors">
                                     Contact
                                 </Link>
@@ -42,9 +37,26 @@ export default function Footer() {
                     <div className="space-y-4">
                         <h3 className="text-lg font-semibold text-blue-400">Contact</h3>
                         <ul className="space-y-2 text-gray-400">
-                            <li>Email: contact@akananurux.com</li>
-                            <li>Phone: +1 (555) 123-4567</li>
-                            <li>Location: San Francisco, CA</li>
+                            <li>
+                                <a href="mailto:akananurux@gmail.com" className="hover:text-blue-300 transition-colors">
+                                    Email: akananurux@gmail.com
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/akananurux" target="_blank" rel="noopener noreferrer" className="hover:text-blue-300 transition-colors">
+                                    LinkedIn: akananurux
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/akananurux/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-300 transition-colors">
+                                    Instagram: @akananurux
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://x.com/akananurux" target="_blank" rel="noopener noreferrer" className="hover:text-blue-300 transition-colors">
+                                    X: @akananurux
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# AkananuruX
-=======
 # AkananuruX Website
 
 A modern, professional dark mode website for AkananuruX, offering software-related services including coding, project creation, resume building, and profile optimization.
@@ -79,7 +76,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-- Website: [akananurux.com](https://akananurux.com)
-- Email: contact@akananurux.com
-- LinkedIn: [linkedin.com/in/akananurux](https://linkedin.com/in/akananurux) 
->>>>>>> c0592fd6312131c623f2b86f4f792ab10bef5e9f
+- Email: akananurux@gmail.com
+- LinkedIn: [akananurux](https://www.linkedin.com/in/akananurux)
+- Instagram: [@akananurux](https://www.instagram.com/akananurux/)
+- X: [@akananurux](https://x.com/akananurux)
