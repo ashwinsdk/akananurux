@@ -5,7 +5,7 @@ import PageTransition from '@/components/PageTransition';
 export default function Home() {
     return (
         <PageTransition>
-            <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-24 bg-black">
+            <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-24 home-background">
                 <div className="z-10 w-full max-w-5xl items-center justify-between text-sm">
                     <h1 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 text-center text-white/70 animate-fade-in">
                         Welcome to AkananuruX

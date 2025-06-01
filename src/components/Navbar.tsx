@@ -28,11 +28,10 @@ export default function Navbar() {
     const navItems = [
         { name: 'Home', path: '/' },
         { name: 'Services', path: '/services' },
-        { name: 'Contact', path: '/contact' },
     ];
 
     return (
-        <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-lg' : 'bg-transparent'
+        <header className={`fixed top-4 left-4 right-4 z-50 transition-all duration-300 glass rounded-xl ${scrolled ? 'border-b border-white/10' : 'border-b border-transparent'}
             }`}>
             <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
@@ -69,7 +68,7 @@ export default function Navbar() {
                             href="/contact"
                             className="glass-button px-4 py-2 text-sm font-medium"
                         >
-                            Get Started
+                            Contact
                         </Link>
                     </div>
 
@@ -94,7 +93,7 @@ export default function Navbar() {
             {/* Mobile menu */}
             <div
                 className={`md:hidden ${mobileMenuOpen
-                    ? 'fixed inset-0 z-50 bg-black/95 backdrop-blur-lg'
+                    ? 'fixed inset-0 z-50 glass'
                     : 'hidden'
                     }`}
             >
@@ -143,7 +142,7 @@ export default function Navbar() {
                                         className="glass-button block w-full text-center px-3 py-2 text-base font-medium"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
-                                        Get Started
+                                        Contact
                                     </Link>
                                 </div>
                             </div>

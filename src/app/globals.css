@@ -15,6 +15,10 @@ body {
     color: var(--foreground);
     background: var(--background);
     font-family: 'Cormorant Garamond', serif;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/assets/bg-abstract-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 /* Custom scrollbar */
@@ -55,7 +59,10 @@ html {
 /* Glassmorphism Components */
 @layer components {
     .glass-card {
-        @apply bg-glass-light backdrop-blur-md border border-white/10 rounded-lg shadow-glass;
+        @apply rounded-lg shadow-glass;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 255, 0.1);
     }
 
     .glass-button {
@@ -146,7 +153,7 @@ html {
 
 /* Glass effect */
 .glass {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 0, 255, 0.1);
 }
