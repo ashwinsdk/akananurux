@@ -18,7 +18,7 @@ body {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/assets/bg-abstract-1.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    animation: background-pan 22s linear infinite;
 }
 
 /* Custom scrollbar */
@@ -93,6 +93,16 @@ html {
 }
 
 /* Animations */
+@keyframes background-pan {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 40% 40%;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
