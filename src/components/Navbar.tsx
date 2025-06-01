@@ -90,66 +90,33 @@ export default function Navbar() {
                 </div>
             </nav>
 
-            {/* Mobile menu */}
-            <div
-                className={`md:hidden ${mobileMenuOpen
-                    ? 'fixed inset-0 z-50 glass'
-                    : 'hidden'
-                    }`}
-            >
-                <div className="fixed inset-0 z-50">
-                    <div className="fixed inset-y-0 right-0 w-full overflow-y-auto px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
-                        <div className="flex items-center justify-between">
-                            <Link href="/" className="-m-1.5 p-1.5">
-                                <span className="sr-only">AkananuruX</span>
-                                <Image
-                                    src="/assets/ax.png"
-                                    alt="AkananuruX Logo"
-                                    width={40}
-                                    height={40}
-                                    className="h-8 w-auto"
-                                />
-                            </Link>
-                            <button
-                                type="button"
-                                className="rounded-md p-2 text-white hover:bg-white/10"
+            {/* Mobile menu dropdown */}
+            {mobileMenuOpen && (
+                <div className="absolute top-full left-0 right-0 glass rounded-b-xl overflow-hidden">
+                    <nav className="px-2 py-2 space-y-1 text-center">
+                        {navItems.map((item) => (
+                            <Link
+                                key={item.name}
+                                href={item.path}
+                                className={`block rounded-lg px-3 py-2 text-base font-medium ${pathname === item.path
+                                    ? 'bg-white/10 text-primary'
+                                    : 'text-white hover:bg-white/10'
+                                    }`}
                                 onClick={() => setMobileMenuOpen(false)}
                             >
-                                <span className="sr-only">Close menu</span>
-                                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                            </button>
-                        </div>
-                        <div className="mt-6 flow-root">
-                            <div className="-my-6 divide-y divide-white/10">
-                                <div className="space-y-1 py-6">
-                                    {navItems.map((item) => (
-                                        <Link
-                                            key={item.name}
-                                            href={item.path}
-                                            className={`block rounded-lg px-3 py-2 text-base font-medium ${pathname === item.path
-                                                ? 'bg-white/10 text-primary'
-                                                : 'text-white hover:bg-white/10'
-                                                }`}
-                                            onClick={() => setMobileMenuOpen(false)}
-                                        >
-                                            {item.name}
-                                        </Link>
-                                    ))}
-                                </div>
-                                <div className="py-6">
-                                    <Link
-                                        href="/contact"
-                                        className="glass-button block w-full text-center px-3 py-2 text-base font-medium"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        Contact
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                {item.name}
+                            </Link>
+                        ))}
+                        <Link
+                            href="/contact"
+                            className="glass-button block w-auto text-center px-3 py-2 text-base font-medium mt-2"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            Contact
+                        </Link>
+                    </nav>
                 </div>
-            </div>
+            )}
         </header>
     );
 } 

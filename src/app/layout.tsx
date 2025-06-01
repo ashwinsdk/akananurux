@@ -24,7 +24,7 @@ export default function RootLayout({
             <body className="bg-black text-white min-h-screen font-mono">
                 <Navbar />
                 <AnimatePresence mode="wait">
-                    <main className="pt-16 transition-all duration-300">
+                    <main className="pt-16 transition-all duration-300 relative z-0">
                         {children}
                     </main>
                 </AnimatePresence>
